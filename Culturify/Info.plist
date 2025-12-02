@@ -5,11 +5,11 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>CFBundleName</key>
-	<string>OllamaUI</string>
+	<string>Culturify</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ollama UI</string>
+	<string>Culturify</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.example.OllamaUI</string>
+	<string>com.example.Culturify</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CFBundleShortVersionString</key>

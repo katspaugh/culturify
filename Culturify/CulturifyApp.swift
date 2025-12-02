@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct OllamaUIApp: App {
+struct CulturifyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {

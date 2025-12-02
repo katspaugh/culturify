@@ -7,21 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1000001000000000000001 /* OllamaUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000001 /* OllamaUIApp.swift */; };
+		A1000001000000000000001 /* CulturifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000001 /* CulturifyApp.swift */; };
 		A1000003000000000000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004000000000000001 /* ContentView.swift */; };
 		A1000005000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006000000000000001 /* AppDelegate.swift */; };
-		A1000007000000000000001 /* OllamaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008000000000000001 /* OllamaService.swift */; };
+		A1000007000000000000001 /* CulturifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008000000000000001 /* CulturifyService.swift */; };
 		A1000009000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000010000000000000001 /* Assets.xcassets */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1000011000000000000001 /* OllamaUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OllamaUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1000002000000000000001 /* OllamaUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaUIApp.swift; sourceTree = "<group>"; };
+		A1000011000000000000001 /* Culturify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Culturify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000002000000000000001 /* CulturifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CulturifyApp.swift; sourceTree = "<group>"; };
 		A1000004000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000006000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A1000008000000000000001 /* OllamaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaService.swift; sourceTree = "<group>"; };
+		A1000008000000000000001 /* CulturifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CulturifyService.swift; sourceTree = "<group>"; };
 		A1000010000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000012000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,28 +40,29 @@
 		A1000014000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				A1000015000000000000001 /* OllamaUI */,
+				A1000015000000000000001 /* Culturify */,
 				A1000016000000000000001 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A1000015000000000000001 /* OllamaUI */ = {
+		A1000015000000000000001 /* Culturify */ = {
 			isa = PBXGroup;
 			children = (
-				A1000002000000000000001 /* OllamaUIApp.swift */,
+				A1000002000000000000001 /* CulturifyApp.swift */,
 				A1000006000000000000001 /* AppDelegate.swift */,
 				A1000004000000000000001 /* ContentView.swift */,
-				A1000008000000000000001 /* OllamaService.swift */,
+				A1000008000000000000001 /* CulturifyService.swift */,
+
 				A1000010000000000000001 /* Assets.xcassets */,
 				A1000012000000000000001 /* Info.plist */,
 			);
-			path = OllamaUI;
+			path = Culturify;
 			sourceTree = "<group>";
 		};
 		A1000016000000000000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1000011000000000000001 /* OllamaUI.app */,
+				A1000011000000000000001 /* Culturify.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1000017000000000000001 /* OllamaUI */ = {
+		A1000017000000000000001 /* Culturify */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1000018000000000000001 /* Build configuration list for PBXNativeTarget "OllamaUI" */;
+			buildConfigurationList = A1000018000000000000001 /* Build configuration list for PBXNativeTarget "Culturify" */;
 			buildPhases = (
 				A1000019000000000000001 /* Sources */,
 				A1000013000000000000001 /* Frameworks */,
@@ -79,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = OllamaUI;
-			productName = OllamaUI;
-			productReference = A1000011000000000000001 /* OllamaUI.app */;
+			name = Culturify;
+			productName = Culturify;
+			productReference = A1000011000000000000001 /* Culturify.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1000022000000000000001 /* Build configuration list for PBXProject "OllamaUI" */;
+			buildConfigurationList = A1000022000000000000001 /* Build configuration list for PBXProject "Culturify" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -112,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1000017000000000000001 /* OllamaUI */,
+				A1000017000000000000001 /* Culturify */,
 			);
 		};
 /* End PBXProject section */
@@ -134,9 +137,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000003000000000000001 /* ContentView.swift in Sources */,
-				A1000001000000000000001 /* OllamaUIApp.swift in Sources */,
+				A1000001000000000000001 /* CulturifyApp.swift in Sources */,
 				A1000005000000000000001 /* AppDelegate.swift in Sources */,
-				A1000007000000000000001 /* OllamaService.swift in Sources */,
+				A1000007000000000000001 /* CulturifyService.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +270,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = OllamaUI/OllamaUI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Culturify/Culturify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -274,7 +278,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OllamaUI/Info.plist;
+				INFOPLIST_FILE = Culturify/Info.plist;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -282,7 +286,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.OllamaUI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Culturify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -294,7 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = OllamaUI/OllamaUI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Culturify/Culturify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -302,7 +306,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OllamaUI/Info.plist;
+				INFOPLIST_FILE = Culturify/Info.plist;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -310,7 +314,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.OllamaUI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Culturify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -320,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1000018000000000000001 /* Build configuration list for PBXNativeTarget "OllamaUI" */ = {
+		A1000018000000000000001 /* Build configuration list for PBXNativeTarget "Culturify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000025000000000000001 /* Debug */,
@@ -329,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1000022000000000000001 /* Build configuration list for PBXProject "OllamaUI" */ = {
+		A1000022000000000000001 /* Build configuration list for PBXProject "Culturify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000023000000000000001 /* Debug */,

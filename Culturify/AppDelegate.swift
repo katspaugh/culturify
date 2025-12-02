@@ -1,9 +1,11 @@
 import SwiftUI
 import AppKit
+import Carbon
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var popover: NSPopover?
+    var hotKeyRef: EventHotKeyRef?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -14,10 +16,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.target = self
         }
         
+        let contentView = ContentView()
         popover = NSPopover()
-        popover?.contentSize = NSSize(width: 400, height: 300)
         popover?.behavior = .transient
-        popover?.contentViewController = NSHostingController(rootView: ContentView())
+        let hostingController = NSHostingController(rootView: contentView)
+        hostingController.sizingOptions = [.intrinsicContentSize]
+        popover?.contentViewController = hostingController
+        
+        registerGlobalHotkey()
+    }
+    
+    func registerGlobalHotkey() {
+        var eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
+        
+        let selfPointer = UnsafeMutablePointer<AppDelegate>.allocate(capacity: 1)
+        selfPointer.initialize(to: self)
+        
+        InstallEventHandler(GetApplicationEventTarget(), { (nextHandler, theEvent, userData) -> OSStatus in
+            guard let userData = userData else { return noErr }
+            let appDelegate = userData.assumingMemoryBound(to: AppDelegate.self).pointee
+            
+            DispatchQueue.main.async {
+                appDelegate.handleHotkey()
+            }
+            
+            return noErr
+        }, 1, &eventType, selfPointer, nil)
+        
+        // Register Cmd+Shift+Space
+        var hotKeyID = EventHotKeyID(signature: OSType(0x4F4C4C4D), id: 1) // "OLLM"
+        let keyCode: UInt32 = 49 // Space key
+        let modifiers: UInt32 = UInt32(cmdKey | shiftKey)
+        
+        RegisterEventHotKey(keyCode, modifiers, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef)
+    }
+    
+    func handleHotkey() {
+        togglePopover()
     }
     
     @objc func togglePopover() {

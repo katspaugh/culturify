@@ -1,50 +1,66 @@
-# Ollama UI - macOS Menubar App
+# Culturify - macOS Menubar App
 
-A minimal macOS menubar application built with Swift/SwiftUI that provides quick access to Ollama AI models.
+A minimal macOS menubar application built with Swift/SwiftUI that helps you communicate professionally and warmly on Slack using GitHub Copilot CLI or Ollama.
 
 ## Features
 
 - 🎯 Custom menubar icon
 - 💬 Simple text input interface
-- 🤖 Integration with Ollama (llama3.1:8b model)
-- ⚡️ Fast popup UI
-- 📝 Response display with reset functionality
+- 🤖 GitHub Copilot CLI (Claude Haiku 4.5) with fallback to Ollama (llama3.1:8b)
+- ⚡️ Fast popup UI with global keyboard shortcut (Cmd+Shift+Space)
+- 📝 Auto-copy corrected text to clipboard
+- ✨ Personal, warm tone - no corporate "we"
 
 ## Requirements
 
 - macOS 13.0 or later
 - Xcode 15.0 or later
-- Ollama installed with llama3.1:8b model
+- GitHub Copilot CLI (`gh`) OR Ollama with llama3.1:8b model
 
 ## Installation
 
-1. Make sure Ollama is installed:
+1. Install GitHub Copilot CLI (preferred) OR Ollama:
    ```bash
+   # Option 1: GitHub Copilot CLI (faster)
+   gh auth login
+   gh extension install github/gh-copilot
+   
+   # Option 2: Ollama (fallback)
    brew install ollama
    ollama pull llama3.1:8b
    ```
 
 2. Open the project:
    ```bash
-   open OllamaUI.xcodeproj
+   open Culturify.xcodeproj
    ```
 
 3. Build and run the project in Xcode (⌘R)
 
+4. Grant Accessibility permissions for global keyboard shortcut:
+   - System Settings → Privacy & Security → Accessibility
+   - Add Culturify to allowed apps
+
 ## Usage
 
-1. Click the menubar icon to open the popup
-2. Enter your prompt in the text area
-3. Click "Submit" to send to Ollama
-4. View the response
-5. Click the refresh icon to start a new query
+1. Press **Cmd+Shift+Space** anywhere or click the menubar icon
+2. Type or paste text that needs grammar correction
+3. Press **Enter** or click "Culturify" button
+4. Corrected text automatically copied to clipboard
+5. Press **Enter** again to start a new query
 
 ## Project Structure
 
-- `OllamaUIApp.swift` - Main app entry point
-- `AppDelegate.swift` - Menubar and popover management
+- `CultureifyApp.swift` - Main app entry point
+- `AppDelegate.swift` - Menubar, popover, and global hotkey management
 - `ContentView.swift` - Main UI view
-- `OllamaService.swift` - Ollama integration service
+- `CultureifyService.swift` - Copilot CLI / Ollama integration service
+
+## Keyboard Shortcuts
+
+- **Cmd+Shift+Space** - Toggle popup globally
+- **Enter** - Submit query / Reset after response
+- **Shift+Enter** - New line in text editor
 
 ## License
 
