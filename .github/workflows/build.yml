@@ -26,14 +26,15 @@ jobs:
             -configuration Release \
             -derivedDataPath build \
             -arch arm64 \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO
       
       - name: Create application bundle
         run: |
           mkdir -p dist
           cp -r build/Build/Products/Release/Culturify.app dist/
+          # Ad-hoc code sign the app
+          codesign --force --deep --sign - dist/Culturify.app
           # Remove quarantine attributes
           xattr -cr dist/Culturify.app
           # Create zip preserving permissions

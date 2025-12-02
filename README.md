@@ -65,3 +65,23 @@ A minimal macOS menubar application built with Swift/SwiftUI that helps you comm
 ## License
 
 MIT
+
+## Download
+
+Download the latest release from [GitHub Releases](https://github.com/katspaugh/culturify/releases) or [GitHub Actions](https://github.com/katspaugh/culturify/actions).
+
+### First Launch
+
+macOS will block the app because it's not notarized. To open it:
+
+**Option 1: Remove quarantine attribute (recommended)**
+```bash
+xattr -cr Culturify.app
+```
+
+**Option 2: Allow in System Settings**
+1. Right-click `Culturify.app` and select "Open"
+2. Click "Open" in the security dialog
+3. Or go to System Settings → Privacy & Security → Allow "Culturify"
+
+Then move it to your Applications folder.
