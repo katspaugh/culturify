@@ -34,8 +34,11 @@ jobs:
         run: |
           mkdir -p dist
           cp -r build/Build/Products/Release/Culturify.app dist/
+          # Remove quarantine attributes
+          xattr -cr dist/Culturify.app
+          # Create zip preserving permissions
           cd dist
-          zip -r Culturify.app.zip Culturify.app
+          ditto -c -k --keepParent Culturify.app Culturify.app.zip
       
       - name: Get version
         id: version
