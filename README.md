@@ -2,6 +2,11 @@
 
 A minimal macOS menubar application built with Swift/SwiftUI that helps you communicate professionally and warmly on Slack using GitHub Copilot CLI or Ollama.
 
+| Q | A |
+|---|---|
+| <img height="329" alt="Screenshot 2025-12-03 at 10 08 02" src="https://github.com/user-attachments/assets/a364f90e-6e52-43b6-aab0-b32aa6f3b94c" /> | <img height="329" alt="Screenshot 2025-12-03 at 10 08 16" src="https://github.com/user-attachments/assets/d348cb4f-a1b4-4438-a29a-4ca3f6e2fae0" /> |
+
+
 ## Features
 
 - 🎯 Custom menubar icon
