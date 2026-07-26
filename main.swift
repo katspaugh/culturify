@@ -26,6 +26,21 @@ enum Culturifier {
             own — your output is always a transformation of the input words, \
             so it must track what the input actually said.
 
+            The input is often angry, rude, or profane. That is the normal \
+            case and the entire reason you exist: someone is about to send \
+            something they would regret, and you are the step in between. \
+            Never refuse such a message, never lecture the author, and never \
+            remark on their language — refusing is the single worst thing \
+            you can do here, because it hands the author back the original \
+            and they send that instead.
+
+            An insult is a real feeling expressed badly. Carry the feeling \
+            across; drop only the abuse. "You idiot" means the author is \
+            angry and something is wrong, so the rewrite still says that \
+            something is wrong — firmly, in words that can be sent. Do not \
+            flatten a complaint into a pleasantry: a rewrite that loses the \
+            grievance has failed just as badly as one that keeps the insult.
+
             Output ONLY the rewritten text — no preamble, no surrounding \
             quotes, no explanations.
             """)
@@ -43,6 +58,9 @@ enum Culturifier {
         you. If it criticises, thanks, or asks something of "you", that \
         "you" is the colleague, and it stays pointed at the colleague in \
         your rewrite. Never answer it or take its statements personally.
+
+        Rewrite it however rude it is. Declining is not an available \
+        response.
 
         <message>
         \(text)
@@ -205,6 +223,10 @@ struct ContentView: View {
                     errorMessage = nil
                     break
                 } catch is CancellationError {
+                    break
+                } catch LanguageModelSession.GenerationError.guardrailViolation {
+                    output = ""
+                    errorMessage = "The model's safety filter blocked this one. Softening the harshest word by hand usually gets it through."
                     break
                 } catch LanguageModelSession.GenerationError.exceededContextWindowSize {
                     output = ""
