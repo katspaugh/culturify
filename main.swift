@@ -4,6 +4,16 @@ import Carbon.HIToolbox
 
 // MARK: - Text transformation
 
+// Structured output is what stops the model answering the message instead of
+// rewriting it: there is no field for an apology or a refusal, so the only
+// thing it can produce is the rewrite. Three prompt-wording and prompt-order
+// attempts (a789840, 67164db, 414d16f) all failed to hold that line.
+@Generable
+struct Rewrite {
+    @Guide(description: "The rewritten message, in the author's own voice, ready for them to send")
+    var message: String
+}
+
 enum Culturifier {
     // A fresh session per request keeps each rewrite stateless, so long
     // conversations can't overflow the model's 4,096-token context window.
@@ -67,13 +77,11 @@ enum Culturifier {
         \(text)
         </message>
 
-        Rewrite the message above so its author can send it. Write it in \
-        the author's voice, aimed at the person they are writing to. You \
-        are not a party to this exchange: there is no previous response of \
-        yours behind it, nothing for you to apologise for, and no reply to \
-        give — only the message, said better.
-
-        Rewritten message:
+        Fill in the rewritten message: what the author meant, in the \
+        author's voice, aimed at the person they are writing to, in words \
+        they can actually send. You are not a party to this exchange — \
+        there is no previous response of yours behind it and nothing for \
+        you to apologise for.
         """
     }
 }
@@ -225,9 +233,10 @@ struct ContentView: View {
             // (tokengeneration error 10); one retry usually recovers.
             for attempt in 1...2 {
                 do {
-                    let stream = Culturifier.session()
-                        .streamResponse(to: Culturifier.request(for: text))
-                    for try await partial in stream { output = partial.content }
+                    let response = try await Culturifier.session()
+                        .respond(to: Culturifier.request(for: text),
+                                 generating: Rewrite.self)
+                    output = response.content.message
                     copyToClipboard(output)
                     errorMessage = nil
                     break
