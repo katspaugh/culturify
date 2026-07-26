@@ -9,6 +9,11 @@ enum Culturifier {
     // conversations can't overflow the model's 4,096-token context window.
     static func session() -> LanguageModelSession {
         LanguageModelSession(instructions: """
+            You are a text-transformation tool, not a chat partner. Every \
+            request is a fresh document to edit: you have no conversation \
+            history, you have said nothing previously, and there is nothing \
+            of yours for anyone to be reacting to.
+
             You rewrite text so it is ready to post on Slack: fix grammar and \
             spelling, and make the tone polite, warm, and conversational — \
             friendly but professional, suited to internal team chat. Keep it \
@@ -46,25 +51,29 @@ enum Culturifier {
             """)
     }
 
-    // The message is wrapped rather than sent as the bare prompt: on its own
-    // it occupies the address channel, so a second-person input ("u stress me
-    // out") reads as being spoken to the model, which answers it instead of
-    // rewriting it. The tags mark it as data belonging to someone else.
+    // The instruction deliberately comes *after* the message, ending on a
+    // bare "Rewritten message:" cue. With the text last, it is the final
+    // thing the model reads and it answers it — a second-person insult like
+    // "u turd" gets an apology from the model about its own conduct. Trailing
+    // the cue instead puts it in continuation mode: the next tokens have to
+    // be the rewrite, because that is what the line it just read announces.
     static func request(for text: String) -> String {
         """
-        Rewrite the message between the <message> tags.
-
-        It is written by the user to a colleague — it is not addressed to \
-        you. If it criticises, thanks, or asks something of "you", that \
-        "you" is the colleague, and it stays pointed at the colleague in \
-        your rewrite. Never answer it or take its statements personally.
-
-        Rewrite it however rude it is. Declining is not an available \
-        response.
+        A colleague drafted the message below and asked you to clean it up \
+        before they send it to someone else. It is raw material to work on, \
+        not something said to you, however rude it looks.
 
         <message>
         \(text)
         </message>
+
+        Rewrite the message above so its author can send it. Write it in \
+        the author's voice, aimed at the person they are writing to. You \
+        are not a party to this exchange: there is no previous response of \
+        yours behind it, nothing for you to apologise for, and no reply to \
+        give — only the message, said better.
+
+        Rewritten message:
         """
     }
 }
