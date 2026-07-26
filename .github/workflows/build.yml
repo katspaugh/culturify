@@ -10,37 +10,26 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
-    
+    # FoundationModels needs the macOS 26 SDK.
+    runs-on: macos-26
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-      
+
       - name: Build app
-        run: |
-          xcodebuild -project Culturify.xcodeproj \
-            -scheme Culturify \
-            -configuration Release \
-            -derivedDataPath build \
-            -arch arm64 \
-            CODE_SIGN_IDENTITY="-" \
-            CODE_SIGNING_REQUIRED=NO
-      
-      - name: Create application bundle
+        run: ./build.sh
+
+      - name: Package app
         run: |
           mkdir -p dist
-          cp -r build/Build/Products/Release/Culturify.app dist/
-          # Ad-hoc code sign the app
-          codesign --force --deep --sign - dist/Culturify.app
+          cp -r Culturify.app dist/
           # Remove quarantine attributes
           xattr -cr dist/Culturify.app
           # Create zip preserving permissions
           cd dist
           ditto -c -k --keepParent Culturify.app Culturify.app.zip
-      
+
       - name: Get version
         id: version
         run: |
@@ -49,7 +38,7 @@ jobs:
           else
             echo "version=latest" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -59,7 +48,7 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

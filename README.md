@@ -1,92 +1,70 @@
-# Culturify - macOS Menubar App
+# Culturify
 
-A minimal macOS menubar application built with Swift/SwiftUI that helps you communicate professionally and warmly on Slack using GitHub Copilot CLI or Ollama.
+A minimal macOS menubar app that rewrites text to be polite, warm, and
+Slack-ready using Apple's on-device
+[Foundation Models](https://developer.apple.com/documentation/foundationmodels)
+(the ~3B-parameter Apple Intelligence model).
+
+No Xcode project — one Swift file, built with `swiftc`. Everything runs
+on-device; nothing is sent over the network.
 
 | Q | A |
 |---|---|
 | <img height="329" alt="Screenshot 2025-12-03 at 10 08 02" src="https://github.com/user-attachments/assets/a364f90e-6e52-43b6-aab0-b32aa6f3b94c" /> | <img height="329" alt="Screenshot 2025-12-03 at 10 08 16" src="https://github.com/user-attachments/assets/d348cb4f-a1b4-4438-a29a-4ca3f6e2fae0" /> |
 
-
 ## Features
 
-- 🎯 Custom menubar icon
-- 💬 Simple text input interface
-- 🤖 GitHub Copilot CLI (Claude Haiku 4.5) with fallback to Ollama (llama3.1:8b)
-- ⚡️ Fast popup UI with global keyboard shortcut (Cmd+Shift+Space)
-- 📝 Auto-copy corrected text to clipboard
-- ✨ Personal, warm tone - no corporate "we"
+- 🎯 Lives in the menubar — no Dock icon, no windows
+- ⚡️ Global keyboard shortcut (Cmd+Shift+Space) opens the popup anywhere
+- 🍏 Apple's on-device Foundation model — fully offline, no API keys, no CLIs
+- 📝 Rewritten text is auto-copied to the clipboard
+- ✨ Personal, warm tone — no corporate "we"
 
 ## Requirements
 
-- macOS 13.0 or later
-- Xcode 15.0 or later
-- GitHub Copilot CLI (`gh`) OR Ollama with llama3.1:8b model
+- macOS 26 (Tahoe) on Apple silicon
+- Apple Intelligence enabled in System Settings
 
-## Installation
+## Build & run
 
-1. Install GitHub Copilot CLI (preferred) OR Ollama:
-   ```bash
-   # Option 1: GitHub Copilot CLI (faster)
-   gh auth login
-   gh extension install github/gh-copilot
-   
-   # Option 2: Ollama (fallback)
-   brew install ollama
-   ollama pull llama3.1:8b
-   ```
-
-2. Open the project:
-   ```bash
-   open Culturify.xcodeproj
-   ```
-
-3. Build and run the project in Xcode (⌘R)
-
-4. Grant Accessibility permissions for global keyboard shortcut:
-   - System Settings → Privacy & Security → Accessibility
-   - Add Culturify to allowed apps
+```sh
+./build.sh
+open Culturify.app
+```
 
 ## Usage
 
-1. Press **Cmd+Shift+Space** anywhere or click the menubar icon
-2. Type or paste text that needs grammar correction
-3. Press **Enter** or click "Culturify" button
-4. Corrected text automatically copied to clipboard
-5. Press **Enter** again to start a new query
+1. Press **Cmd+Shift+Space** anywhere, or click the menubar icon
+2. Type or paste the text you want to soften
+3. Press **Enter** (Shift+Enter for a newline)
+4. The rewritten text is copied to the clipboard automatically
+5. Press **Enter** again to start over
 
-## Project Structure
+Right-click the menubar icon (or press Cmd+Q while the popup is open) to quit.
 
-- `CultureifyApp.swift` - Main app entry point
-- `AppDelegate.swift` - Menubar, popover, and global hotkey management
-- `ContentView.swift` - Main UI view
-- `CultureifyService.swift` - Copilot CLI / Ollama integration service
+## Notes
 
-## Keyboard Shortcuts
+- The model's context window is 4,096 tokens; each rewrite is stateless, so
+  there's no conversation carry-over.
+- The rewrite instructions live in one place — the `Culturifier` enum in
+  `main.swift` — tweak the tone there.
 
-- **Cmd+Shift+Space** - Toggle popup globally
-- **Enter** - Submit query / Reset after response
-- **Shift+Enter** - New line in text editor
+## Download
+
+Download the latest release from
+[GitHub Releases](https://github.com/katspaugh/culturify/releases) or
+[GitHub Actions](https://github.com/katspaugh/culturify/actions).
+
+### First Launch
+
+The app is ad-hoc signed, not notarized. If macOS blocks it:
+
+```sh
+xattr -cr Culturify.app
+```
+
+Or right-click `Culturify.app` → "Open" → "Open".
 
 ## License
 
 MIT
-
-## Download
-
-Download the latest release from [GitHub Releases](https://github.com/katspaugh/culturify/releases) or [GitHub Actions](https://github.com/katspaugh/culturify/actions).
-
-### First Launch
-
-macOS will block the app because it's not notarized. To open it:
-
-**Option 1: Remove quarantine attribute (recommended)**
-```bash
-xattr -cr Culturify.app
-```
-
-**Option 2: Allow in System Settings**
-1. Right-click `Culturify.app` and select "Open"
-2. Click "Open" in the security dialog
-3. Or go to System Settings → Privacy & Security → Allow "Culturify"
-
-Then move it to your Applications folder.
