@@ -8,10 +8,29 @@ import Carbon.HIToolbox
 // rewriting it: there is no field for an apology or a refusal, so the only
 // thing it can produce is the rewrite. Three prompt-wording and prompt-order
 // attempts (a789840, 67164db, 414d16f) all failed to hold that line.
-@Generable
-struct Rewrite {
-    @Guide(description: "The rewritten message, in the author's own voice, ready for them to send")
+//
+// The conformance is written out by hand because the @Generable macro plugin
+// (libFoundationModelsMacros.dylib) ships only inside Xcode.app; the Command
+// Line Tools toolchain this builds with has the framework but not the plugin.
+struct Rewrite: Generable {
     var message: String
+
+    static var generationSchema: GenerationSchema {
+        GenerationSchema(type: Rewrite.self, properties: [
+            GenerationSchema.Property(
+                name: "message",
+                description: "The rewritten message, in the author's own voice, ready for them to send",
+                type: String.self),
+        ])
+    }
+
+    init(_ content: GeneratedContent) throws {
+        message = try content.value(String.self, forProperty: "message")
+    }
+
+    var generatedContent: GeneratedContent {
+        GeneratedContent(properties: ["message": message])
+    }
 }
 
 enum Culturifier {

@@ -3,24 +3,10 @@
 set -e
 cd "$(dirname "$0")"
 
-# @Generable and @Guide are compiler-plugin macros. Xcode points the compiler
-# at the plugin executables for you; a bare swiftc does not, and the build
-# fails with "plugin for module 'FoundationModelsMacros' not found". Pass
-# every plugin directory this toolchain actually has.
-plugin_flags=()
-for dir in \
-  "$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins" \
-  "$(xcode-select -p)/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins" \
-  "$(xcrun --sdk macosx --show-sdk-path)/usr/lib/swift/host/plugins"
-do
-  if [[ -d "$dir" ]]; then plugin_flags+=(-plugin-path "$dir"); fi
-done
-
-if [[ ${#plugin_flags} -eq 0 ]]; then
-  echo "warning: no Swift macro plugin directories found; @Generable will not expand" >&2
-fi
-
-swiftc -O "${plugin_flags[@]}" main.swift -o Culturify
+# No macro plugin flags: the Generable conformance in main.swift is written
+# out by hand, because the @Generable macro plugin only ships inside Xcode.app
+# and this builds with the Command Line Tools.
+swiftc -O main.swift -o Culturify
 
 APP=Culturify.app
 rm -rf "$APP"
