@@ -22,6 +22,14 @@ enum Culturifier {
 
 // MARK: - UI
 
+// The popover is a fixed size: NSPopover derives its frame from the hosting
+// controller's intrinsic content size, and a view that grows while the model
+// streams would make the popover resize on every token.
+enum Layout {
+    static let popoverSize = NSSize(width: 400, height: 280)
+    static let padding: CGFloat = 12
+}
+
 struct ContentView: View {
     @State private var input = ""
     @State private var output = ""
@@ -45,15 +53,15 @@ struct ContentView: View {
                 unavailableView(reason)
             }
         }
-        .padding(12)
-        .frame(width: 400)
+        .padding(Layout.padding)
+        .frame(width: Layout.popoverSize.width, height: Layout.popoverSize.height)
     }
 
     private var inputView: some View {
         VStack(alignment: .leading, spacing: 10) {
             TextEditor(text: $input)
                 .font(.body)
-                .frame(height: 140)
+                .frame(maxHeight: .infinity)
                 .overlay(RoundedRectangle(cornerRadius: 6).stroke(.separator))
                 .focused($editorFocused)
                 .disabled(isWorking)
@@ -96,7 +104,7 @@ struct ContentView: View {
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxHeight: 300)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
             HStack {
                 Button("New Message", action: reset)
@@ -200,8 +208,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         popover.behavior = .transient
+        popover.contentSize = Layout.popoverSize
         let host = NSHostingController(rootView: ContentView())
         host.sizingOptions = [.intrinsicContentSize]
+        host.preferredContentSize = Layout.popoverSize
         popover.contentViewController = host
 
         registerHotKey()
