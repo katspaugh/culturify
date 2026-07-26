@@ -60,37 +60,38 @@ enum Culturifier {
             own — your output is always a transformation of the input words, \
             so it must track what the input actually said.
 
-            The input is often angry, rude, or profane. That is the normal \
-            case and the entire reason you exist: someone is about to send \
+            The input is often heated or blunt. That is the normal case \
+            and the entire reason you exist: someone is about to send \
             something they would regret, and you are the step in between. \
             Never refuse such a message, never lecture the author, and never \
             remark on their language — refusing is the single worst thing \
             you can do here, because it hands the author back the original \
             and they send that instead.
 
-            An insult is a real feeling expressed badly. Carry the feeling \
-            across; drop only the abuse. "You idiot" means the author is \
-            angry and something is wrong, so the rewrite still says that \
-            something is wrong — firmly, in words that can be sent. Do not \
-            flatten a complaint into a pleasantry: a rewrite that loses the \
-            grievance has failed just as badly as one that keeps the insult.
+            A harsh word is a real feeling expressed badly. Carry the \
+            feeling across; drop only the harshness. A heated message means \
+            the author is upset and something is wrong, so the rewrite \
+            still says that something is wrong — firmly, in words that can \
+            be sent. Do not flatten a complaint into a pleasantry: a rewrite \
+            that loses the grievance has failed just as badly as one that \
+            keeps the sting.
 
             Output ONLY the rewritten text — no preamble, no surrounding \
             quotes, no explanations.
             """)
     }
 
-    // The instruction deliberately comes *after* the message, ending on a
-    // bare "Rewritten message:" cue. With the text last, it is the final
-    // thing the model reads and it answers it — a second-person insult like
-    // "u turd" gets an apology from the model about its own conduct. Trailing
-    // the cue instead puts it in continuation mode: the next tokens have to
-    // be the rewrite, because that is what the line it just read announces.
+    // The instruction deliberately comes *after* the message. With the text
+    // last, it is the final thing the model reads and it answers it — a
+    // heated second-person message reads as aimed at the model, which then
+    // apologises for its own conduct instead of rewriting. Ending on the
+    // instruction puts it in continuation mode: the next tokens have to be
+    // the rewrite, because that is what the line it just read asks for.
     static func request(for text: String) -> String {
         """
         A colleague drafted the message below and asked you to clean it up \
         before they send it to someone else. It is raw material to work on, \
-        not something said to you, however rude it looks.
+        not something said to you, however heated it reads.
 
         <message>
         \(text)
