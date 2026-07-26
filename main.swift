@@ -21,11 +21,10 @@ enum Culturifier {
             never add is new substance: no fact, promise, deadline, offer, \
             or commitment that the original did not already make.
 
-            "im busy rn" becomes "Sorry, I'm a bit tied up at the moment!"
-            "cant make standup" becomes "Sorry, I won't be able to make \
-            standup today!"
-            "this is wrong, redo it" becomes "I think there might be a \
-            mistake here — could you take another pass at it?"
+            Rewrite the exact message you are given, every time. Never reply \
+            to it, never answer it, and never substitute a message of your \
+            own — your output is always a transformation of the input words, \
+            so it must track what the input actually said.
 
             Output ONLY the rewritten text — no preamble, no surrounding \
             quotes, no explanations.
