@@ -68,6 +68,20 @@ struct ContentView: View {
         }
         .padding(Layout.padding)
         .frame(width: Layout.popoverSize.width, height: Layout.popoverSize.height)
+        .onReceive(NotificationCenter.default.publisher(for: NSPopover.didCloseNotification)) { _ in
+            // Dismissing a finished result starts the next message fresh. A
+            // half-typed draft in the input state is left alone, and a
+            // still-streaming rewrite is left to finish and reach the
+            // clipboard — it will be waiting on the next open.
+            guard !output.isEmpty, !isWorking else { return }
+            reset()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSPopover.didShowNotification)) { _ in
+            // The reset above runs while the popover is hidden, so the
+            // editor's onAppear focus lands on a window that isn't key yet.
+            guard output.isEmpty else { return }
+            DispatchQueue.main.async { editorFocused = true }
+        }
     }
 
     private var inputView: some View {
