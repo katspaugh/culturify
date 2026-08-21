@@ -65,6 +65,11 @@ xattr -cr Culturify.app
 
 Or right-click `Culturify.app` → "Open" → "Open".
 
+## Also in this repo
+
+- [Nudge](Nudge/README.md) — a tiny Apple Watch app that taps your wrist
+  every 20 minutes.
+
 ## License
 
 MIT
